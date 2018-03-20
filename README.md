@@ -18,3 +18,32 @@
     apt-get install emacs gcc
 
 
+    #プロセスの確認
+    docker ps -a
+    #イメージの確認
+    docker image ls
+    #イメージを一気に削除
+    docker image prune -a
+
+
+##チートシート
+
+	## List Docker CLI commands
+	docker
+	docker container --help
+
+	## Display Docker version and info
+   	docker --version
+	docker version
+	docker info
+
+	## Excecute Docker image
+	docker run hello-world
+
+	## List Docker images
+	docker image ls
+
+	## List Docker containers (running, all, all in quiet mode)
+	docker container ls
+	docker container ls --all
+	docker container ls -aq
