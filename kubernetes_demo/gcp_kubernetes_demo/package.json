@@ -1,0 +1,17 @@
+{
+  "name": "kubernetes_demo",
+  "version": "1.0.0",
+  "description": "Let's enjoy kubernetes demo.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "yusukixs",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3",
+    "jade":"^1.11.0"
+  }
+}
+
