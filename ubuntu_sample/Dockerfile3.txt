@@ -1,0 +1,20 @@
+FROM ubuntu:16.04
+
+# build 時に実行すること
+RUN apt-get update
+RUN apt-get install -y vim
+RUN apt-get install -y curl
+
+# Port
+EXPOSE 22 80
+
+# コンテナを実行した時のコマンド
+CMD ["echo", "running!"]
+
+RUN mkdir /code
+WORKDIR /code
+ADD requirements.txt /code/
+RUN pip install -r requirements.txt
+ADD . /code/
+
+

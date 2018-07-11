@@ -1,0 +1,7 @@
+FROM ubuntu:16.04
+
+RUN echo "now building..."
+RUN apt-get update
+RUN apt-get install -qq wget unzip build-essential cmake gcc libcunit1-dev libudev-dev
+
+CMD echo "now running..."
