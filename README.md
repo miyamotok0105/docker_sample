@@ -20,13 +20,15 @@
 
     #プロセスの確認
     docker ps -a
+    #コンテナ全部操作！！便利だけど気をつけて。
+    docker stop $(docker ps -aq)
+    docker rm $(docker ps -aq)
+    docker rmi $(docker images -aq)
     #イメージの確認
     docker image ls
-    #イメージを一気に削除
-    docker image prune -a
 
 
-##チートシート
+##チートシート：docker
 
 	## List Docker CLI commands
 	docker
@@ -47,3 +49,22 @@
 	docker container ls
 	docker container ls --all
 	docker container ls -aq
+
+
+##チートシート：docker-compose
+
+
+```
+#ビルドしてup
+docker-compose build
+docker-compose up
+#コンテナ消す
+docker-compose kill
+#イメージ消す
+docker-compose rm
+#これやってもdocker ps -aとかdocker imagesには残ってるんだよね。
+#イメージ
+docker-compose images
+```
+
+
