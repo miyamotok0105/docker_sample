@@ -28,7 +28,7 @@
     docker image ls
 
 
-##チートシート：docker
+## チートシート：docker
 
 	## List Docker CLI commands
 	docker
@@ -51,7 +51,7 @@
 	docker container ls -aq
 
 
-##チートシート：docker-compose
+## チートシート：docker-compose
 
 
 ```
