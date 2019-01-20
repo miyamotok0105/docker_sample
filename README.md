@@ -51,6 +51,11 @@
 	docker container ls -aq
 
 
+[公式サンプル](https://github.com/docker/labs)    
+[ubuntu-nginx-phpfpm-redis-mysql](https://github.com/maemori/accon/blob/master/docker/ubuntu-nginx-phpfpm-redis-mysql/Dockerfile)    
+[dockerfile](https://github.com/dockerfile)    
+
+
 ## チートシート：docker-compose
 
 
@@ -67,4 +72,72 @@ docker-compose rm
 docker-compose images
 ```
 
+## kubectl
 
+kubenetesとkubectlのコマンド周りのバージョン合わないと動かんこともあるかも。    
+
+
+- v1.10.0    
+
+```:mac
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/darwin/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+```
+
+
+```:linux
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+```
+
+この記事が結構まとまってる。    
+
+[基礎](http://sassembla.github.io/Public/2018:03:22%2020-25-55/2018:03:22%2020-25-55.html)    
+
+[公式](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-using-curl)    
+
+[k8sチートシート](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#deleting-resources)    
+
+
+## Minikube
+
+```
+
+brew update && brew install kubectl && brew cask install docker minikube virtualbox
+brew install kubernetes-cli
+brew cask install virtualbox
+brew cask install docker
+
+```
+
+[公式インストール](https://github.com/kubernetes/minikube)
+
+
+pod表示。    
+
+
+```
+kubectl get pods
+```
+
+動いてるサービス確認。    
+
+
+```
+minikube service list
+```
+
+
+[参考](https://kubernetes.io/docs/tasks/tools/install-minikube/)    
+[kubectlを1.11にアップグレードしたらget podsができなくなった](https://qiita.com/hitochan777/items/40771f1acebcc5f5f538)    
+
+
+## kubeflow
+
+
+```
+brew install ksonnet/tap/ks
+ks version
+```
