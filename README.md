@@ -63,12 +63,17 @@
 #ビルドしてup
 docker-compose build
 docker-compose up
+#デーモンで動かす                                                                        docker-compose up -d
 #コンテナ消す
 docker-compose kill
+#コンテナ全消し
+docker-compose down
+#イメージも全削除
+docker-compose down --rmi all
 #イメージ消す
 docker-compose rm
 #これやってもdocker ps -aとかdocker imagesには残ってるんだよね。
-#イメージ
+#イメージ確認
 docker-compose images
 ```
 
