@@ -45,6 +45,7 @@ curl https://raw.githubusercontent.com/kubeflow/kubeflow/${KUBEFLOW_TAG}/scripts
 
 ```
 ${KUBEFLOW_SRC}/scripts/kfctl.sh init ${KFAPP} --platform gcp --project ${PROJECT}
+#この時にenv.shを編集してregion変更しとく。
 cd ${KFAPP}
 ${KUBEFLOW_SRC}/scripts/kfctl.sh generate platform
 ${KUBEFLOW_SRC}/scripts/kfctl.sh apply platform
