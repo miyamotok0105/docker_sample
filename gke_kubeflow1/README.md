@@ -1,6 +1,15 @@
 
 # 基礎
 
+
+```
+Compute Engine
+GKE
+Identity and Access Management (IAM)
+Deployment Manager
+```
+
+必要そうなリソースを有効にしておく必要がある。    
 OAuth client credentialsを設定しておくこと。    
 ここで必要なのかは不明だがgoとksも先に入れておいた。    
 GKEにKubeflowをデプロイする方法にはGUIとcmdでの方法がある。    
