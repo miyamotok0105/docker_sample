@@ -1,0 +1,11 @@
+version: '2'
+
+
+volumes:
+  web_syncs:
+    external: true
+
+services:
+  web:
+    volumes:
+      - web_syncs:/my-web-app/:nocopy

@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  web:
+    build: .
+    working_dir: /my-web-app/
+    tty: true
+    ports:
+      - "127.0.0.1:80:80"
+    volumes:
+      - web_syncs:/my-web-app/:nocopy
+
+volumes:
+  web_syncs:
+    external: true

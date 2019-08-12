@@ -1,0 +1,10 @@
+version: '2'
+
+
+options:
+  compose-dev-file-path: 'docker-compose-dev.yml'
+
+syncs:
+  web_syncs:
+    src: './'
+    sync_strategy: 'unison'
