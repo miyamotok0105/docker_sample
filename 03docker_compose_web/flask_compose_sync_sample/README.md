@@ -44,5 +44,7 @@ docker-compose exec web sh
 docker-compose down --volumes
 docker-compose stop
 docker-compose rm
+
+docker-sync stop
 ```
 
