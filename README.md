@@ -81,13 +81,16 @@ Docker of Ubuntu Image.
 #ビルドしてup
 docker-compose build
 docker-compose up
-#デーモンで動かす                                                                        docker-compose up -d
+#デーモンで動かす                                                                       
+docker-compose up -d
 #コンテナ消す
 docker-compose kill
 #コンテナ全消し
 docker-compose down
 #イメージも全削除
 docker-compose down --rmi all
+#ボリュームも削除
+docker-compose down --volumes
 #イメージ消す
 docker-compose rm
 #これやってもdocker ps -aとかdocker imagesには残ってるんだよね。
@@ -164,3 +167,10 @@ minikube service list
 brew install ksonnet/tap/ks
 ks version
 ```
+
+
+# 参考
+
+[Docker19.3](https://medium.com/nttlabs/docker-1903-5155754ff8ac)    
+
+
