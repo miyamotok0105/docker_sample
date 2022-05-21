@@ -1,7 +1,9 @@
-web:
-  build: ./web
-    # dockerfile: Dockerfile
-  ports:
-   - "5001:5001"
-  volumes:
-   - .:/code
+version: "3"
+services:
+  web:
+    build: ./web
+      # dockerfile: Dockerfile
+    ports:
+    - "5001:5001"
+    volumes:
+    - .:/code

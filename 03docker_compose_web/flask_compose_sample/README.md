@@ -57,5 +57,10 @@ Control + d
 
 
 
-
+```
+#フォルダー直下のcompose全部消えます。
+#気をつけて消してください。
+#全部残しとくと容量圧迫しますので、定期的に掃除をしてください。
+docker-compose down --rmi all --volumes --remove-orphans
+```
 

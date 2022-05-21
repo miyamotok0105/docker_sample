@@ -69,9 +69,29 @@ Docker of Ubuntu Image.
 	docker container ls -aq
 
 
+
 [公式サンプル](https://github.com/docker/labs)    
 [ubuntu-nginx-phpfpm-redis-mysql](https://github.com/maemori/accon/blob/master/docker/ubuntu-nginx-phpfpm-redis-mysql/Dockerfile)    
 [dockerfile](https://github.com/dockerfile)    
+
+[Dockerfileでcdが効かない](https://christina04.hatenablog.com/entry/2014/10/31/101510)
+→　
+```
+DockerのビルドではDockerfileの命令ごとにコンテナを作るので、各命令のカレントディレクトリは常に[/]になる。
+RUN cd ../
+
+このように指定してRUNすると良い
+WORKDIR /hoge
+
+あるいは複数のコマンドを繋げる
+RUN cd ../ && \
+    hoge
+```
+
+[stretch/buster/jessie/bullseyeの違い](https://www.ted027.com/post/docker-debian-difference/)
+
+例えばPython3.5で検索した場合、slimなどを指定してDockerイメージ作成
+https://hub.docker.com/_/python?tab=tags&page=1&name=3.5
 
 
 ## チートシート：docker-compose
@@ -118,6 +138,17 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
+
+```
+# Minikubeを起動し、クラスターを作成
+minikube start
+
+
+```
+
+
+
+
 この記事が結構まとまってる。    
 
 [基礎](http://sassembla.github.io/Public/2018:03:22%2020-25-55/2018:03:22%2020-25-55.html)    
@@ -127,11 +158,19 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 [k8sチートシート](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#deleting-resources)    
 
 
+kubernetes meetup tokyoのyoutubeを見ると良い。
+    
+
+
 ## Minikube
 
 ```
 
-brew update && brew install kubectl && brew cask install docker minikube virtualbox
+brew update && brew install kubectl && brew cask install docker 
+
+brew install minikube
+
+minikube virtualbox
 brew install kubernetes-cli
 brew cask install virtualbox
 brew cask install docker

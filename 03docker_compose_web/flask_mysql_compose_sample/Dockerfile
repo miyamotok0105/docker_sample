@@ -1,26 +1,38 @@
-# Pythonは公式イメージ
-FROM python:3.5.2
+# # Pythonは公式イメージ
+# FROM python:3.5.2
+FROM ubuntu:18.04
+#Check recent info
+#https://hub.docker.com/_/ubuntu
 
 # オリジナルはJoshua Conner氏
 # MAINTAINER Joshua Conner <joshua.conner@gmail.com>
 MAINTAINER Ryosuke Kamei <sr2smail@gmail.com>
 
-# 各ライブラリインストール
-# Pythonがパッケージ依存するものもインストール
-# Pythonプロフェッショナルプログラミング第2版P9より
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y 	vim \
-						sudo \
-						python3-dev \
-						zlib1g-dev \
-						libsqlite3-dev \
-						libreadline6-dev \
-						libgdbm-dev \
-						libbz2-dev \
-						tk-dev
-	
-# ユーザ作成
+RUN apt-get update -y
+RUN apt-get install -y python-pip python-dev build-essential
+
+# RUN apt-get install -y 	sudo \
+# 						python3-dev \
+						# zlib1g-dev \
+						# libsqlite3-dev \
+						# libreadline6-dev \
+						# libgdbm-dev \
+						# libbz2-dev
+
+# RUN apt-get update -y
+
+# # RUN apt-get upgrade -y
+# RUN apt-get install -y 	sudo \
+# 						python3-dev \
+# 						zlib1g-dev \
+# 						libsqlite3-dev \
+# 						libreadline6-dev \
+# 						libgdbm-dev \
+# 						libbz2-dev \
+# 						tk-dev
+# #                        python3-mysql.connector
+
+# # ユーザ作成
 RUN groupadd web
 RUN useradd -d /home/python -m python
 
@@ -34,13 +46,17 @@ RUN pip install virtualenv \
 				flake8 \
                 Flask
 
+#SQLAlchemy
+#  \Flask-Migrate
+# mysqlclient
+#mysql-connector-python
 # MySQLドライバ"mysql-connector-python"をインストール
 # pipのを使うとうまくいかない。
 # git cloneしてビルド、インストール
-RUN git clone https://github.com/mysql/mysql-connector-python.git
-WORKDIR mysql-connector-python
-RUN python ./setup.py build
-RUN python ./setup.py install
+# RUN git clone https://github.com/mysql/mysql-connector-python.git
+# WORKDIR mysql-connector-python
+# RUN python ./setup.py build
+# RUN python ./setup.py install
 
 # ユーザを変更
 USER python
@@ -65,7 +81,11 @@ USER python
 # ポートを解放（Flaskのデフォルトのポート番号:5001）
 EXPOSE 5001
 # サーバ起動
-ENTRYPOINT ["/usr/local/bin/python", "/home/python/flask_sample.py"]
+# ENTRYPOINT ["/usr/local/bin/python", "/home/python/flask_sample.py"]
+
+ENTRYPOINT ["python"]
+CMD ["/home/python/flask_sample.py"]
+
 
 # フレームワークを指定しない時や、サーバにログインしてから実行したい場合
 # ENTRYPOINT ["/usr/bin/tail", "-f", "/dev/null"]
