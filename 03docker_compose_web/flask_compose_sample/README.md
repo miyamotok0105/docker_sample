@@ -1,12 +1,16 @@
 
-
-
 # docker build
 
 
 ```
+#イメージが作り直される
+docker-compose build
+
+or
+
+#dockerを直接いじるより、composeからいじるほうが楽
 docker build -t flask-sample-one:latest .
-docker run -d -p 5000:5000 flask-sample-one
+docker run -d -p 5001:5001 flask-sample-one
 docker ps -a
 ```
 
@@ -16,9 +20,9 @@ docker ps -a
 # docker-compose upしてみる。
 
 
-
 ```
-docker-compose up
+#デーモン状態でイメージからコンテナ起動
+docker-compose up -d
 ```
 
 buildでwebフォルダ指定してる。
@@ -30,16 +34,27 @@ volumesでマウント。ローカルのカレントディレクトリとコン�
 web:
   build: ./web
   ports:
-   - "5000:5000"
+   - "5001:5001"
   volumes:
    - .:/code
 
 
 ```
 
-http://localhost:5000
+http://localhost:5001
 
 が動く。
+
+
+
+```
+#Dockerに入る
+docker-compose exec web /bin/bash
+
+#Dockerを抜ける。
+Control + d
+```
+
 
 
 

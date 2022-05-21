@@ -1,0 +1,38 @@
+version: '3'
+data:
+  container_name: python-flask-data
+  image: busybox
+  stdin_open: true
+  tty: false
+  volumes:
+    - ./docker/mysql:/etc/mysql/conf.d:ro
+    - ./app:/home/python
+  command: /bin/sh
+
+mysql:
+  container_name: python-flask-db
+  platform: linux/x86_64 # M1チップ対応のため追記
+  image: mysql:5.7
+  volumes:
+   - ./initdb.d:/docker-entrypoint-initdb.d
+  environment:
+    MYSQL_ROOT_PASSWORD: password
+    MYSQL_USER: python
+    MYSQL_PASSWORD: python
+    MYSQL_DATABASE: sample
+  ports:
+    - "3306:3306"
+  volumes_from:
+    - data
+
+application:
+  container_name: python-flask-app
+  build: .
+  # image: pythonbottle_application
+  tty: false
+  volumes_from:
+    - data
+  ports:
+    - "5001:5001"
+  links:
+    - mysql:python-flask-db
