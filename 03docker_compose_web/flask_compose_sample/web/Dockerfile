@@ -1,12 +1,19 @@
-FROM ubuntu:18.04
-#Check recent info
-#https://hub.docker.com/_/ubuntu
+FROM python:3.9.4-slim
 
-MAINTAINER Rajdeep Dua "dua_rajdeep@yahoo.com"
-RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev build-essential 
+RUN apt update; apt -y upgrade
+RUN apt install -y vim less emacs
+RUN pip install --upgrade pip
+RUN pip install --upgrade setuptools
+RUN pip install poetry
+
+# ローカルのコマンド実行直下のファイル(.の意味)を、
+# Dockerの中のappフォルダーへCOPY
 COPY . /app
+
+# WORKDIRがカレントディレクトリー
 WORKDIR /app
+
 RUN pip install -r requirements.txt
 ENTRYPOINT ["python"]
 CMD ["app.py"]
+

@@ -1,0 +1,99 @@
+version: '3.3'
+services:
+  myapp:
+    image: my-app
+    environment:
+      # 環境変数
+      VIRTUAL_HOST: example.com,www.example.com # カンマ区切りで複数ドメイン指定できる
+      LETSENCRYPT_HOST: example.com,www.example.com # カンマ区切りで複数ドメイン指定できる
+      LETSENCRYPT_EMAIL: mail@example.com
+# sharedって名前でネットワーク作成
+networks:
+  default:
+    external:
+      name: shared
+
+version: "2"
+services:
+  # nginx-proxyを使うとVIRTUAL_HOSTでアクセスできるようになる
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:ro
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+    restart: always
+    networks:
+      - shared
+  # ssl暗号の機能を持ってるletsencryptのdocker
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: letsencrypt
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./certs:/etc/nginx/certs:rw
+    volumes_from:
+      - nginx-proxy
+    restart: always
+    networks:
+      - shared
+# sharedって名前でネットワーク作成
+networks:
+  shared:
+    external: true
+
+
+# version: '3'
+# services:
+#   web:
+#     image: nginx
+#     restart: always
+#     ports:
+#     - "8080:80"
+#     environment:
+#       #環境変数
+#       VIRTUAL_HOST: sample.com
+#       # portsが80の時は省略できる。
+#       # VIRTUAL_PORT: 8000
+#       LETSENCRYPT_HOST:  sample.com
+#       LETSENCRYPT_EMAIL: sample@sample.com
+
+#   nginx-proxy:
+#     image: jwilder/nginx-proxy
+#     container_name: nginx-proxy
+#     restart: always
+#     ports:
+#     - "80:80"
+#     - "443:443"
+#     volumes:
+#     - html:/usr/share/nginx/html
+#     - dhparam:/etc/nginx/dhparam
+#     - vhost:/etc/nginx/vhost.d
+#     - certs:/etc/nginx/certs:ro
+#     - /var/run/docker.sock:/tmp/docker.sock:ro
+#     labels:
+#     - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+
+#   letsencrypt:
+#     #証明書発行用のコンテナのimage
+#     image: jrcs/letsencrypt-nginx-proxy-companion
+#     container_name: nginx-proxy-lets-encrypt
+#     restart: always
+#     depends_on:
+#     - "nginx-proxy"
+#     volumes:
+#     - certs:/etc/nginx/certs:rw
+#     - vhost:/etc/nginx/vhost.d
+#     - html:/usr/share/nginx/html
+#     - /var/run/docker.sock:/var/run/docker.sock:ro
+
+# volumes:
+#   certs:
+#   html:
+#   vhost:
+#   dhparam:

@@ -1,13 +1,27 @@
 version: "3"
 services:
+  application:
+    container_name: python-flask-app
+    build: ./app
+    tty: false
+    volumes_from:
+      - data
+    ports:
+      - "5001:5001"
+    links:
+      - mysql:python-flask-db
+
   data:
     container_name: python-flask-data
     image: busybox
     stdin_open: true
     tty: false
+    # ローカルの直下と、Dockerのcodeフォルダーをマウント
+    # マウントしないとローカルで変更してもDocker内は変わらない
     volumes:
+      - ./app:/code
       - ./docker/mysql:/etc/mysql/conf.d:ro
-      - ./app:/home/python
+      # - ./app:/home/python    
     command: /bin/sh
 
   mysql:
@@ -26,14 +40,3 @@ services:
     volumes_from:
       - data
 
-  application:
-    container_name: python-flask-app
-    build: .
-    # image: pythonbottle_application
-    tty: false
-    volumes_from:
-      - data
-    ports:
-      - "5001:5001"
-    links:
-      - mysql:python-flask-db

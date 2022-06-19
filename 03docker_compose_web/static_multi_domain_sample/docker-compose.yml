@@ -1,0 +1,42 @@
+version: '3'
+services:
+  web1:
+    build: web1
+    container_name: web1
+    restart: always
+    ports:
+      - "80"
+    networks:
+      - docker-network
+    environment:
+      VIRTUAL_HOST: web1.test
+      VIRTUAL_PORT: 80
+      VIRTUAL_PROTO: http
+  web2:
+    build: web2
+    container_name: web2
+    restart: always
+    ports:
+      - "80"
+    networks:
+      - docker-network
+    environment:
+      VIRTUAL_HOST: web2.test
+      VIRTUAL_PORT: 80
+      VIRTUAL_PROTO: http
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    restart: always
+    privileged: true
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
+    networks:
+      - docker-network
+networks:
+  docker-network:
+    external: true

@@ -1,0 +1,30 @@
+version: "3.2"
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      args:
+        # Pass the name of our Domain and Email from .env
+        DOMAIN: ${DOMAIN}
+        EMAIL: ${EMAIL}
+        # Pass the name of our docker-compose service to avoid
+        # having to modify it in Nginx if we want to change it.
+        FLASK: application
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - application
+
+  application:
+    # Load app folder fron our .env file (in this example: src).
+    build: ./${APP_FOLDER}
+    command: gunicorn -c gunicorn.ini.py ${FLASK_APP}:app
+    environment:
+      # Load our flask environment from our .env file.
+      - FLASK_ENV=${FLASK_ENV}
+    ports:
+      - 5000:5000

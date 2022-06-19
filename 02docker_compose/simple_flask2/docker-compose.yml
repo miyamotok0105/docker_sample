@@ -1,0 +1,10 @@
+version: '3'
+services:
+  web:
+    build: ./app
+    ports:
+      - "5001:5001"
+    # ローカルの直下と、Dockerのcodeフォルダーをマウント
+    # マウントしないとローカルで変更してもDocker内は変わらない
+    volumes:
+      - ./app:/code

@@ -3,14 +3,16 @@
 
 
 ```
-#イメージが作り直される
+#Composeを使う場合
+#イメージが作り直される 
 docker-compose build
 
 or
 
-#dockerを直接いじるより、composeからいじるほうが楽
-docker build -t flask-sample-one:latest .
-docker run -d -p 5001:5001 flask-sample-one
+#Composeを使わない場合
+#composeからいじるほうが楽
+#docker build -t flask-sample-one:latest .
+#docker run -d -p 5001:5001 flask-sample-one
 docker ps -a
 ```
 
@@ -50,6 +52,7 @@ http://localhost:5001
 ```
 #Dockerに入る
 docker-compose exec web /bin/bash
+
 
 #Dockerを抜ける。
 Control + d
