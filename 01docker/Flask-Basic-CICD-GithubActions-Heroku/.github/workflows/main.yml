@@ -1,0 +1,33 @@
+
+# ワークフロー名
+name: CI
+
+# Controls when the workflow will run
+on:
+  # push masterブランチのタイミングで実行
+  push:
+    branches: [master]
+
+  # workflow_dispatchを指定しておくとGitHubのコンソールから実行可能になる
+  workflow_dispatch:
+
+# ワークフローの実行処理
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # ubuntuで実行
+    runs-on: ubuntu-latest
+
+    # ジョブのステップ
+    steps:
+      # ブランチをチェックアウト
+      - uses: actions/checkout@v2
+
+      # アクションの一覧
+      # https://github.com/marketplace?type=actions
+      # uses: アカウント/アクション-リポジトリ-名前@vバージョン
+      - uses: akhileshns/heroku-deploy@v3.12.12 #
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
